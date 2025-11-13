@@ -9,11 +9,19 @@ pipeline {
         }     
         stage('Deliver') { 
             steps {
-                bat 'dotnet publish SimpleWebApi --no-restore -o \\\\TSITINFAPPWS039\\pgeweb\\iv2' 
+                bat 'dotnet publish SimpleWebApi --no-restore -o publish_output' 
             }
             post {
                 success {
-                    archiveArtifacts '\\\\TSITINFAPPWS039\\pgeweb\\iv2\\*.*'
+                    archiveArtifacts 'publish_output/*.*'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    // Copy artifacts to deployment folder
+                    bat 'xcopy /E /I /Y publish_output\\* "\\\\TSITINFAPPWS039\\pgeweb\\iv2\\"'
                 }
             }
         }
