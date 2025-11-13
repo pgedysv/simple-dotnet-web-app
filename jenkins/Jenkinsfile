@@ -9,11 +9,11 @@ pipeline {
         }     
         stage('Deliver') { 
             steps {
-                bat 'dotnet publish SimpleWebApi --no-restore -o //TSITINFAPPWS039/pgeweb/iv2' 
+                bat 'dotnet publish SimpleWebApi --no-restore -o \\\\TSITINFAPPWS039\\pgeweb\\iv2' 
             }
             post {
                 success {
-                    archiveArtifacts '//TSITINFAPPWS039/pgeweb/iv2/*.*'
+                    archiveArtifacts '\\\\TSITINFAPPWS039\\pgeweb\\iv2\\*.*'
                 }
             }
         }
